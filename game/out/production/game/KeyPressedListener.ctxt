@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=
+comment0.target=boolean\ isWPressed()
+comment1.params=
+comment1.target=boolean\ isSPressed()
+comment2.params=
+comment2.target=boolean\ isUpArrowPressed()
+comment3.params=
+comment3.target=boolean\ isDownArrowPressed()
+comment4.params=e
+comment4.target=void\ keyPressed(java.awt.event.KeyEvent)
+comment5.params=e
+comment5.target=void\ keyReleased(java.awt.event.KeyEvent)
+comment6.params=e
+comment6.target=void\ keyTyped(java.awt.event.KeyEvent)
+numComments=7
