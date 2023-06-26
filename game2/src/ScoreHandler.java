@@ -1,7 +1,4 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class ScoreHandler {
     public ScoreHandler(int score){
@@ -20,7 +17,9 @@ public class ScoreHandler {
             try {
                 new DataSubmitManager(input, score);
             } catch (Exception exception){
-                System.out.println(exception.toString());
+                System.out.println("could not connect to server");
+                exception.printStackTrace();
+                frame.dispose();
             }
         });
         frame.getContentPane().add(panel);

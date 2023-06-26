@@ -24,9 +24,13 @@ public class TwoPlayer extends JPanel implements ActionListener {
     private final double SPEED_INCREASE_FACTOR = 0.005;
     private final int SPEED_INCREASE_INTERVAL = 300;
     private double speedIncreaseCountdown = SPEED_INCREASE_INTERVAL;
+    private final SoundManager soundManager;
+    private final Timer timer;
 
     public TwoPlayer() {
-        Timer timer = new Timer(10, this);
+        soundManager = new SoundManager();
+        soundManager.playStartSound();
+        timer = new Timer(10, this);
         timer.start();
     }
 
@@ -50,22 +54,26 @@ public class TwoPlayer extends JPanel implements ActionListener {
         if (x < 0) {
             velX = -velX;
             bounceCount++;
+            soundManager.playBounceSound();
         }
 
         // Collision with right wall
         if (x > getWidth() - 30) {
             velX = -velX;
             bounceCount++;
+            soundManager.playBounceSound();
         }
 
         // Collision with top wall
         if (y < 0) {
             velY = -velY;
+            soundManager.playBounceSound();
         }
 
         // Collision with bottom wall
         if (y > getHeight() - 30) {
             velY = -velY;
+            soundManager.playBounceSound();
         }
 
         // Collision with player 1's wall
@@ -73,6 +81,7 @@ public class TwoPlayer extends JPanel implements ActionListener {
             velX = -velX;
             x++;
             bounceCount++;
+            soundManager.playBounceSound();
         }
 
         // Collision with player 2's wall
@@ -80,6 +89,7 @@ public class TwoPlayer extends JPanel implements ActionListener {
             velX = -velX;
             x--;
             bounceCount++;
+            soundManager.playBounceSound();
         }
 
         // Move player 1 up with 'w' key
@@ -111,10 +121,10 @@ public class TwoPlayer extends JPanel implements ActionListener {
 
         // Game over if ball hits left or right border
         if (x < 0 || x > getWidth() - 30) {
-            JFrame topFrame = (JFrame) getTopLevelAncestor();
-            topFrame.dispose();
+            soundManager.playLoseSound();
+            timer.stop();
+            SwingUtilities.windowForComponent(this).dispose();
         }
-
         repaint();
     }
 

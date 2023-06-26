@@ -10,7 +10,6 @@ public class SinglePlayer extends JPanel implements ActionListener {
     private int velY = 2;
     private double speed = 1;
     private int bounceCount = 0;
-    public final int WINDOW_WIDTH = 1200;
     public final int WINDOW_HEIGHT = 700;
     private int player1X = 20;
     private int player1Y = WINDOW_HEIGHT / 2;
@@ -22,8 +21,11 @@ public class SinglePlayer extends JPanel implements ActionListener {
     private final int SPEED_INCREASE_INTERVAL = 300;
     private double speedIncreaseCountdown = SPEED_INCREASE_INTERVAL;
     private final Timer timer;
+    private final SoundManager soundManager;
 
     public SinglePlayer() {
+        this.soundManager = new SoundManager();
+        soundManager.playStartSound();
         timer = new Timer(10, this);
         timer.start();
     }
@@ -46,22 +48,26 @@ public class SinglePlayer extends JPanel implements ActionListener {
         if (x < 0) {
             velX = -velX;
             bounceCount++;
+            soundManager.playBounceSound();
         }
 
         // Collision with right wall
         if (x > getWidth() - 30) {
             velX = -velX;
             bounceCount++;
+            soundManager.playBounceSound();
         }
 
         // Collision with top wall
         if (y < 0) {
             velY = -velY;
+            soundManager.playBounceSound();
         }
 
         // Collision with bottom wall
         if (y > getHeight() - 30) {
             velY = -velY;
+            soundManager.playBounceSound();
         }
 
         // Collision with player 1's wall
@@ -69,6 +75,7 @@ public class SinglePlayer extends JPanel implements ActionListener {
             velX = -velX;
             x++;
             bounceCount++;
+            soundManager.playBounceSound();
         }
 
         // Move player 1 up with 'w' key
@@ -89,10 +96,10 @@ public class SinglePlayer extends JPanel implements ActionListener {
         }
 
         // Game over if ball hits left or right border
-        if (x < 0) {
-            JFrame topFrame = (JFrame) getTopLevelAncestor();
-            topFrame.dispose();
+        if (x < 0) {;
+            soundManager.playLoseSound();
             timer.stop();
+            SwingUtilities.windowForComponent(this).dispose();
             new ScoreHandler(bounceCount);
         }
         repaint();

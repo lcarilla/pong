@@ -8,7 +8,7 @@ public class DataSubmitManager {
     public DataSubmitManager(String name, int score) throws IOException, InterruptedException {
         var client = HttpClient.newHttpClient();
         var request = HttpRequest.newBuilder(
-                        create("http://localhost:8080/api/v1/games/"))
+                create("http://localhost:8080/api/v1/games/"))
                 .POST(HttpRequest.BodyPublishers.ofString("{\"name\":\""+name+"\", \"score\":"+score+"}"))
                 .header("Content-type", "application/json")
                 .build();

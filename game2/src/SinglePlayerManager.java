@@ -5,16 +5,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 public class SinglePlayerManager{
-    public SinglePlayerManager() {
+    private final SinglePlayer singlePlayer;
+    public SinglePlayerManager(SinglePlayer singlePlayer) {
+        this.singlePlayer = singlePlayer;
+    }
+    public void startSinglePlayerGame(){
         JFrame frame = new JFrame("Ball Game");
-        frame.setBackground(Color.red);
-        SinglePlayer ball = new SinglePlayer();
-        frame.add(ball);
-        frame.setSize(ball.WINDOW_WIDTH, ball.WINDOW_HEIGHT);
+        frame.add(singlePlayer);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.addKeyListener(new KeyPressedListener());
     }
 }
