@@ -22,21 +22,25 @@ public class SinglePlayer extends JPanel implements ActionListener {
     private double speedIncreaseCountdown = SPEED_INCREASE_INTERVAL;
     private final Timer timer;
     private final SoundManager soundManager;
+    private final Image img;
 
     public SinglePlayer() {
+        img = Toolkit.getDefaultToolkit().getImage("/home/harald/Programming/pong/game2/src/Pro.jpg");
         this.soundManager = new SoundManager();
         soundManager.playStartSound();
-        timer = new Timer(10, this);
+        timer = new Timer(11, this);
         timer.start();
     }
 
     public void paint(Graphics g) {
         super.paint(g);
+        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
         g.setColor(Color.RED);
         g.fillOval(x, y, 30, 30);
         g.setColor(Color.BLUE);
         g.fillRect(player1X, player1Y, playerWidth, playerHeight);
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.PLAIN, 20));
         g.drawString("Bounce Count: " + bounceCount, SCORE_X_OFFSET, SCORE_Y_OFFSET);
     }
 

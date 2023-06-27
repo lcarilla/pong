@@ -26,8 +26,10 @@ public class TwoPlayer extends JPanel implements ActionListener {
     private double speedIncreaseCountdown = SPEED_INCREASE_INTERVAL;
     private final SoundManager soundManager;
     private final Timer timer;
+    private final Image img;
 
     public TwoPlayer() {
+        img = Toolkit.getDefaultToolkit().getImage("/home/harald/Programming/pong/game2/src/Pro.jpg");
         soundManager = new SoundManager();
         soundManager.playStartSound();
         timer = new Timer(10, this);
@@ -36,12 +38,12 @@ public class TwoPlayer extends JPanel implements ActionListener {
 
     public void paint(Graphics g) {
         super.paint(g);
+        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
         g.setColor(Color.RED);
         g.fillOval(x, y, 30, 30);
         g.setColor(Color.BLUE);
         g.fillRect(player1X, player1Y, playerWidth, playerHeight);
         g.fillRect(player2X, player2Y, playerWidth, playerHeight);
-        
         g.setColor(Color.BLACK);
         g.drawString("Bounce Count: " + bounceCount, SCORE_X_OFFSET, SCORE_Y_OFFSET);
     }
